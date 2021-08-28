@@ -1,26 +1,26 @@
 package com.ericksilva.workshopmongo.resources;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ericksilva.workshopmongo.domain.User;
+import com.ericksilva.workshopmongo.service.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 	
+	@Autowired
+	private UserService service;
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<User>> findAll(){
-		User sophie = new User("1", "Sophie Ferreira", "sophie@gmail.com");
-		User priscila = new User("2", "Priscila Ferreira", "sophie@gmail.com");
-		List<User> list = new ArrayList<>();
-		list.addAll(Arrays.asList(sophie, priscila));
+		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
